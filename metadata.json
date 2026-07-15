@@ -1,0 +1,6 @@
+{
+  "name": "Physics Core",
+  "description": "A premium, modern, AI-powered study planner for higher-level physics subjects.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

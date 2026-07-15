@@ -1,0 +1,68 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Each user's primary profile and study meta-information",
+      "type": "object",
+      "properties": {
+        "fullName": { "type": "string", "description": "User's full name" },
+        "email": { "type": "string", "description": "User's email address" },
+        "university": { "type": "string", "description": "University or college name" },
+        "course": { "type": "string", "description": "Current course/degree of study" },
+        "semester": { "type": "string", "description": "Current semester" },
+        "targetExamination": { "type": "string", "description": "Target exam being prepared for" },
+        "dailyStudyGoal": { "type": "number", "description": "Daily study goal in hours" },
+        "weeklyStudyGoal": { "type": "number", "description": "Weekly study goal in hours" },
+        "monthlyGoal": { "type": "string", "description": "Monthly study goal description" },
+        "studyStreak": { "type": "number", "description": "Current consecutive study streak in days" },
+        "totalStudyHours": { "type": "number", "description": "Total study hours accumulated across all subjects" },
+        "joinDate": { "type": "string", "description": "ISO date when the user signed up" },
+        "achievementBadges": { "type": "array", "description": "Array of unlocked badge IDs" },
+        "profilePicture": { "type": "string", "description": "URL or local placeholder name for the user's avatar" }
+      },
+      "required": ["fullName", "email", "joinDate"]
+    },
+    "SubjectProgress": {
+      "title": "Subject Progress",
+      "description": "Progress metrics and completion state for a single physics subject",
+      "type": "object",
+      "properties": {
+        "subjectId": { "type": "string", "description": "Unique ID of the subject" },
+        "completedSubtopics": { "type": "array", "description": "List of subtopic IDs or names completed by the user" },
+        "studyHours": { "type": "number", "description": "Total study hours spent on this subject" },
+        "lastStudiedDate": { "type": "string", "description": "Last date studied in ISO format" },
+        "longestStudyGap": { "type": "number", "description": "Longest gap in days between study sessions" },
+        "averageStudyGap": { "type": "number", "description": "Average gap in days between study sessions" },
+        "consistencyScore": { "type": "number", "description": "Consistency score from 0 to 100" }
+      },
+      "required": ["subjectId", "completedSubtopics", "studyHours"]
+    },
+    "StudySession": {
+      "title": "Study Session",
+      "description": "A single study session entry representing a completed block of study",
+      "type": "object",
+      "properties": {
+        "sessionId": { "type": "string", "description": "Unique identifier of the study session" },
+        "date": { "type": "string", "description": "Date of the study session (YYYY-MM-DD)" },
+        "durationMinutes": { "type": "number", "description": "Duration of the study session in minutes" },
+        "subjectId": { "type": "string", "description": "Subject studied during this session" },
+        "notes": { "type": "string", "description": "Optional summary or study notes written by the user" }
+      },
+      "required": ["sessionId", "date", "durationMinutes", "subjectId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Stores user profile and overview metrics"
+    },
+    "/users/{userId}/subjectProgress/{subjectId}": {
+      "schema": "SubjectProgress",
+      "description": "Progress tracking for each physics subject for a specific user"
+    },
+    "/users/{userId}/studySessions/{sessionId}": {
+      "schema": "StudySession",
+      "description": "Detailed log of study sessions for historical tracking and statistics"
+    }
+  }
+}
